@@ -3,7 +3,7 @@
 1. Add mymenu to `INSTALLED_APPS`.
 2. Add `mymenu.context_processors.context` to `TEMPLATE_CONTEXT_PROCESSORS`.
 3. Run `python manage.py syncdb`
-3. Run `python manage.py migrate mymenu` (south app required)
+3. Run `python manage.py migrate mymenu` (south required)
 
 ```python
 # settings.py
@@ -29,13 +29,13 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 ```
 
-# Usage
+## Usage
 
 Add menu from django admin page. Use a slug of the menu as access key in templates.
 
 For example, let's render the menu that slug is "top"
 
-```
+```html
 {% for menu_item in menu.top.items %}
     {% ifequal request.get_full_path menu_item.url %}
         <span class="active">{{ menu_item.name }}</span>
