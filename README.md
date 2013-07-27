@@ -31,7 +31,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 ## Usage
 
-Add menu from django admin page. Use a slug of the menu as access key in templates.
+Add the menu from a django admin page. Use slug of the menu as access key in templates.
 
 For example, let's render the menu that slug is "top"
 
