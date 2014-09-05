@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.cache import cache
+from settings import MYMENU_CACHE_KEY
 
 
 class Menu(models.Model):
@@ -9,6 +11,12 @@ class Menu(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        cached_menus = cache.get(MYMENU_CACHE_KEY)
+        if cached_menus is not None:
+            cache.delete(MYMENU_CACHE_KEY)
+        super(Menu, self).save(*args, **kwargs)
 
     def items(self):
         return self.menuitem_set.all()
@@ -33,6 +41,12 @@ class MenuItem(models.Model):
         blank=True
     )
     menu = models.ForeignKey('Menu')
+
+    def save(self, *args, **kwargs):
+        cached_menus = cache.get(MYMENU_CACHE_KEY)
+        if cached_menus is not None:
+            cache.delete(MYMENU_CACHE_KEY)
+        super(MenuItem, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.url
